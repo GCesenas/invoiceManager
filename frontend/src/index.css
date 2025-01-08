@@ -34,6 +34,10 @@ code {
   }
 }
 
+.header {
+  background-color: #002539;
+}
+
 .bg-primary {
   background-color: #002539;
   transition: 0.5s;
@@ -41,6 +45,21 @@ code {
 
 .bg-primary:hover {
   background-color: #00334e;
+  transition: 0.5s;
+}
+
+.sidebar-link:hover {
+  background-color: #E42542;
+  transition: 0.5s;
+}
+
+.bg-secondary {
+  background-color: #E42542;
+  transition: 0.5s;
+}
+
+.bg-secondary:hover {
+  background-color: #ad1c32;
   transition: 0.5s;
 }
 

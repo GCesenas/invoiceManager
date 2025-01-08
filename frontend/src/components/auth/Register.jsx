@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import api from "../../api/axios";
 import { register } from "../../api/auth";
 import { IoMail, IoPerson } from "react-icons/io5";
@@ -12,6 +13,7 @@ const Register = () => {
         setPageTitle("Registro");
     }, []);
 
+    const navigate = useNavigate(); 
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -34,15 +36,33 @@ const Register = () => {
         setErrors({});
 
         try {
-            await api.get("/sanctum/csrf-cookie");
-            const response = await register(formData);
+            await api.get("/sanctum/csrf-cookie"); 
+            const response = await register(formData); 
             console.log("User registered:", response.data);
-            alert("¡Registro exitoso! Ahora puedes iniciar sesión.");
+
+            Swal.fire({
+                icon: "success",
+                title: "¡Registro exitoso! Ahora puedes iniciar sesión.",
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+            });
+
+            navigate("/");
         } catch (err) {
             if (err.response?.data?.errors) {
                 setErrors(err.response.data.errors);
             } else {
-                alert("Ocurrió un error. Intenta nuevamente.");
+                Swal.fire({
+                    icon: "error",
+                    title: "Error al registrar. Intenta nuevamente.",
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                });
             }
         } finally {
             setLoading(false);
@@ -128,7 +148,6 @@ const Register = () => {
                 {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
             </div>
 
-            {/* Confirmar contraseña */}
             <div className="relative">
                 <label className="block text-sm font-medium text-gray-700">Confirmar contraseña</label>
                 <div className={`mt-1 flex items-center border rounded shadow-sm focus-within:ring-blue-500 focus-within:border-blue-500 ${errors.password_confirmation ? "border-red-500" : "border-gray-300"}`}>

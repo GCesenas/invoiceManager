@@ -9,11 +9,18 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('uuid')->unique();
+            $table->string('folio')->nullable();
+            $table->string('transmitter'); 
+            $table->string('receiver'); 
+            $table->string('currency'); 
+            $table->decimal('total', 15, 2);
+            $table->decimal('exchange_rate', 10, 4)->nullable(); 
+            $table->timestamps(); 
         });
     }
 
