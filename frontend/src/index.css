@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +14,42 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  0% {
+      transform: translateY(-10px);
+  }
+  100% {
+      transform: translateY(0);
+  }
+}
+
+.bg-primary {
+  background-color: #002539;
+  transition: 0.5s;
+}
+
+.bg-primary:hover {
+  background-color: #00334e;
+  transition: 0.5s;
+}
+
+.color-secondary {
+  color: #E42542;
+  transition: 0.5s;
+}
+
+.color-secondary:hover {
+  color: #ad1c32;
+  transition: 0.5s;
 }
