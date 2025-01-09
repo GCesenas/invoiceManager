@@ -1,10 +1,12 @@
 import React, { useState, useRef } from "react";
 import { useAuth } from "../../contexts/AuthProvider";
-import { useNavigate } from "react-router-dom";
-import { FaBars, FaChevronDown, FaUserCircle, FaUsers } from "react-icons/fa";
+import { useNavigate, useLocation } from "react-router-dom";
+import { FaBars, FaChevronDown, FaUserCircle, FaUsers, FaSignOutAlt } from "react-icons/fa";
 
 const Header = ({ toggleSidebar, isSidebarOpen }) => {
     const { user, logout } = useAuth();
+    const location = useLocation();
+    const isActive = (path) => location.pathname === path;
     const navigate = useNavigate();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const closeTimeout = useRef(null);
@@ -40,8 +42,14 @@ const Header = ({ toggleSidebar, isSidebarOpen }) => {
             <div className="flex items-center space-x-4 lg:space-x-6">
                 {user?.permissions?.some((permission) => permission.name === "manage-users") && (
                     <button
-                        onClick={() => navigate("/admin")}
-                        className="flex items-center justify-center bg-secondary text-white text-sm lg:text-xs lg:font-semibold px-3 py-1 lg:px-2 lg:py-2 rounded space-x-2 lg:space-x-0"
+                        onClick={() => navigate("/users")}
+                        className={`flex items-center justify-center text-white text-sm lg:text-xs lg:font-semibold px-3 py-1 lg:px-2 lg:py-2 rounded space-x-2 lg:space-x-0
+                            ${
+                                isActive("/users")
+                                    ? "bg-secondary-dark text-white"
+                                    : "bg-secondary text-white"
+                            }
+                            `}
                     >
                         <FaUsers className="w-4 h-4 lg:w-4 lg:h-4 lg:me-2" />
                         <span className="hidden lg:inline">Administrar usuarios</span>
@@ -74,13 +82,14 @@ const Header = ({ toggleSidebar, isSidebarOpen }) => {
                         <ul className="py-2">
                             <li>
                                 <button
-                                    className="block font-semibold w-full text-left px-4 py-2 hover:bg-gray-100"
+                                    className="block font-semibold flex items-center w-full text-left px-4 py-2 hover:bg-gray-100"
                                     onClick={() => {
                                         setIsMenuOpen(false);
                                         logout();
                                     }}
                                 >
-                                    Cerrar sesión
+                                    <FaSignOutAlt className="w-5 h-5 me-2 text-gray-700 group-hover:text-white" />
+                                    <span>Cerrar sesión</span>
                                 </button>
                             </li>
                         </ul>

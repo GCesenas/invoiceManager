@@ -58,6 +58,11 @@ code {
   transition: 0.5s;
 }
 
+.bg-secondary-dark {
+  background-color: #ad1c32;
+  transition: 0.5s;
+}
+
 .bg-secondary:hover {
   background-color: #ad1c32;
   transition: 0.5s;

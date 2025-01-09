@@ -4,8 +4,10 @@ import { AuthProvider } from "./contexts/AuthProvider";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
 import LoginPage from "./pages/LoginPage";
+import UnauthorizedPage from "./pages/UnauthorizedPage";
 import RegisterPage from "./pages/RegisterPage";
 import DashboardPage from "./pages/DashboardPage";
+import UsersAdminPage from "./pages/UsersAdminPage";
 import Layout from "./components/layout/Layout";
 
 const App = () => {
@@ -32,11 +34,33 @@ const App = () => {
                     />
 
                     <Route
+                        path="/unauthorized"
+                        element={
+                            <ProtectedRoute>
+                                <Layout>
+                                    <UnauthorizedPage />
+                                </Layout>
+                            </ProtectedRoute>
+                        }
+                    />
+
+                    <Route
                         path="/dashboard"
                         element={
                             <ProtectedRoute>
                                 <Layout>
                                     <DashboardPage />
+                                </Layout>
+                            </ProtectedRoute>
+                        }
+                    />
+
+                    <Route
+                        path="/users"
+                        element={
+                            <ProtectedRoute requiredPermissions={['manage-users']}>
+                                <Layout>
+                                    <UsersAdminPage />
                                 </Layout>
                             </ProtectedRoute>
                         }
