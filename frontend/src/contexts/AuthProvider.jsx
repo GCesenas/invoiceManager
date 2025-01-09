@@ -7,22 +7,28 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const checkAuth = async () => {
-            try {
-                const token = localStorage.getItem("auth_token");
-                if (token) {
-                    const response = await getUser();
-                    setUser(response.data); 
-                }
-            } catch {
+    const refreshUser = async () => {
+        try {
+            const token = localStorage.getItem("auth_token");
+            if (token) {
+                const response = await getUser();
+                setUser(response.data);
+            } else {
                 setUser(null);
-            } finally {
-                setLoading(false);
             }
-        };
+        } catch (error) {
+            console.error("Error refrescando usuario:", error);
+            setUser(null);
+        }
+    };
 
-        checkAuth();
+    useEffect(() => {
+        const initializeAuth = async () => {
+            setLoading(true);
+            await refreshUser();
+            setLoading(false);
+        };
+        initializeAuth();
     }, []);
 
     const login = (userData, token) => {
@@ -33,10 +39,11 @@ export const AuthProvider = ({ children }) => {
     const logout = () => {
         setUser(null);
         localStorage.removeItem("auth_token");
+        window.location.href = "/";
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, logout, loading }}>
+        <AuthContext.Provider value={{ user, login, logout, loading, refreshUser }}>
             {!loading && children}
         </AuthContext.Provider>
     );

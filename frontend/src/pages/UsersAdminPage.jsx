@@ -7,11 +7,14 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import Select from "react-select";
 import Swal from "sweetalert2";
 import { ImSpinner2 } from "react-icons/im";
+import { useAuth } from "../contexts/AuthProvider";
 
 const UsersAdminPage = () => {
     useEffect(() => {
-        setPageTitle("Administración de usuarios");
+        setPageTitle("Gestión de usuarios");
     }, []);
+
+    const { refreshUser } = useAuth();
 
     const [users, setUsers] = useState([]);
     const [permissions, setPermissions] = useState([]);
@@ -161,6 +164,8 @@ const UsersAdminPage = () => {
                         confirmButtonText: "Aceptar",
                         confirmButtonColor: "#002539",
                     });
+
+                    refreshUser();
                 } catch (error) {
                     Swal.fire({
                         icon: "error",
@@ -222,7 +227,7 @@ const UsersAdminPage = () => {
     }
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-4">
             <div className="bg-white p-6 rounded shadow-sm">
                 <h2 className="text-lg font-semibold mb-4">Crear Usuario</h2>
                 <form onSubmit={handleCreateUser}>

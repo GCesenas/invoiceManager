@@ -6,9 +6,10 @@ import PublicRoute from "./components/PublicRoute";
 import LoginPage from "./pages/LoginPage";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 import RegisterPage from "./pages/RegisterPage";
+import Layout from "./components/layout/Layout";
 import DashboardPage from "./pages/DashboardPage";
 import UsersAdminPage from "./pages/UsersAdminPage";
-import Layout from "./components/layout/Layout";
+import InvoicesPage from "./pages/InvoicesPage";
 
 const App = () => {
     return (
@@ -61,6 +62,17 @@ const App = () => {
                             <ProtectedRoute requiredPermissions={['manage-users']}>
                                 <Layout>
                                     <UsersAdminPage />
+                                </Layout>
+                            </ProtectedRoute>
+                        }
+                    />
+
+                    <Route
+                        path="/invoices"
+                        element={
+                            <ProtectedRoute requiredPermissions={['view-invoices']}>
+                                <Layout>
+                                    <InvoicesPage />
                                 </Layout>
                             </ProtectedRoute>
                         }

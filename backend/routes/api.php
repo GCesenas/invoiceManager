@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -24,4 +25,13 @@ Route::middleware(['auth:sanctum', 'permission:manage-users'])->prefix('admin')-
     Route::get('roles', [RoleController::class, 'index']);
     Route::get('permissions', [PermissionController::class, 'index']);
     Route::post('permissions', [PermissionController::class, 'store']);
+});
+
+Route::middleware(['auth:sanctum'])->prefix('admin')->group(function () {
+    Route::middleware(['permission:view-invoices'])->get('/invoices', [InvoiceController::class, 'index']);
+
+    Route::middleware(['permission:upload-invoices'])->group(function () {
+        Route::post('/invoices', [InvoiceController::class, 'uploadInvoice']);
+        Route::delete('invoices/{id}', [InvoiceController::class, 'destroy']);
+    });
 });

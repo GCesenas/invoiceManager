@@ -71,7 +71,7 @@ const Header = ({ toggleSidebar, isSidebarOpen }) => {
                         />
                     </div>
                     <div
-                        className={`absolute right-0 mt-2 bg-white text-gray-700 rounded shadow-lg w-48 transform transition-all duration-200 ${
+                        className={`absolute right-0 mt-2 bg-white text-gray-700 rounded shadow-lg w-48 transform transition-all duration-200 z-50 ${
                             isMenuOpen
                                 ? "opacity-100 translate-y-0 scale-100"
                                 : "opacity-0 translate-y-2 scale-95 pointer-events-none"

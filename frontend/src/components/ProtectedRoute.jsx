@@ -15,7 +15,7 @@ const ProtectedRoute = ({ children, requiredPermissions = [] }) => {
             user.permissions.some((userPermission) => userPermission.name === permission)
         )
     ) {
-        return <Navigate to="/unauthorized" replace />; 
+        return <Navigate to="/unauthorized" replace />;
     }
 
     return children;
