@@ -222,8 +222,12 @@ const InvoicesPage = () => {
                                         <td className="border px-4 py-2">{invoice.transmitter}</td>
                                         <td className="border px-4 py-2">{invoice.receiver}</td>
                                         <td className="border px-4 py-2">{invoice.currency}</td>
-                                        <td className="border px-4 py-2">{Number(invoice.total).toFixed(2)}</td>
-                                        <td className="border px-4 py-2">{Number(invoice.exchange_rate).toFixed(4)}</td>
+                                        <td className="border px-4 py-2">
+                                            {Number(invoice.total).toLocaleString("es-MX", { style: "currency", currency: "MXN" })}
+                                        </td>
+                                        <td className="border px-4 py-2">
+                                            {Number(invoice.exchange_rate).toLocaleString("es-MX", { style: "currency", currency: "MXN" })}
+                                        </td>
                                         <td className="border px-4 py-2">
                                             <button
                                                 onClick={() => handleDeleteInvoice(invoice.id)}

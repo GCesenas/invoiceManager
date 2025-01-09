@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useAuth } from "../../contexts/AuthProvider";
-import { useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { FaBars, FaChevronDown, FaUserCircle, FaUsers, FaSignOutAlt } from "react-icons/fa";
 
 const Header = ({ toggleSidebar, isSidebarOpen }) => {
@@ -34,7 +34,9 @@ const Header = ({ toggleSidebar, isSidebarOpen }) => {
                 >
                     <FaBars />
                 </button>
-                <h1 className="text-lg font-semibold lg:hidden">Invoice Manager</h1>
+                <Link to="/dashboard">
+                    <h1 className="text-lg font-semibold lg:hidden cursor-pointer">Invoice Manager</h1>
+                </Link>
             </div>
 
             <h1 className="hidden lg:block text-xl font-semibold">Invoice Manager</h1>
@@ -44,10 +46,9 @@ const Header = ({ toggleSidebar, isSidebarOpen }) => {
                     <button
                         onClick={() => navigate("/users")}
                         className={`flex items-center justify-center text-white text-sm lg:text-xs lg:font-semibold px-3 py-1 lg:px-2 lg:py-2 rounded space-x-2 lg:space-x-0
-                            ${
-                                isActive("/users")
-                                    ? "bg-secondary-dark text-white"
-                                    : "bg-secondary text-white"
+                            ${isActive("/users")
+                                ? "bg-secondary-dark text-white"
+                                : "bg-secondary text-white"
                             }
                             `}
                     >
@@ -65,17 +66,15 @@ const Header = ({ toggleSidebar, isSidebarOpen }) => {
                         <FaUserCircle className="w-6 h-6" />
                         <span className="hidden lg:block">Hola, {user?.name}</span>
                         <FaChevronDown
-                            className={`transition-transform duration-200 h-3 w-3 ${
-                                isMenuOpen ? "rotate-180" : "rotate-0"
-                            }`}
+                            className={`transition-transform duration-200 h-3 w-3 ${isMenuOpen ? "rotate-180" : "rotate-0"
+                                }`}
                         />
                     </div>
                     <div
-                        className={`absolute right-0 mt-2 bg-white text-gray-700 rounded shadow-lg w-48 transform transition-all duration-200 z-50 ${
-                            isMenuOpen
+                        className={`absolute right-0 mt-2 bg-white text-gray-700 rounded shadow-lg w-48 transform transition-all duration-200 z-50 ${isMenuOpen
                                 ? "opacity-100 translate-y-0 scale-100"
                                 : "opacity-0 translate-y-2 scale-95 pointer-events-none"
-                        }`}
+                            }`}
                         onMouseEnter={openMenu}
                         onMouseLeave={closeMenu}
                     >

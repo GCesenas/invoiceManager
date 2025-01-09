@@ -41,7 +41,7 @@ class InvoiceController extends Controller
             $responseTodayExchangeRate = $this->getTodayExchangeRate();
             $data = json_decode($responseTodayExchangeRate->getContent(), true);
 
-            $exchangeRate = $data['exchange_rate'];
+            $exchangeRate = isset($data['exchange_rate']) && !empty($data['exchange_rate']) ? $data['exchange_rate'] : 20;
 
             $invoice = Invoice::create([
                 'uuid' => $uuid,
