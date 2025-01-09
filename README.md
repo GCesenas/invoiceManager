@@ -94,4 +94,4 @@ Este proyecto está bajo la licencia MIT. Consulta el archivo LICENSE para más 
 ## 💬 Contacto
 Si tienes alguna duda o sugerencia, ¡no dudes en contactarme! 📩
 
-🔗 LinkedIn: linkedin.com/in/gcesenas
+🔗 LinkedIn: https://linkedin.com/in/gcesenas
